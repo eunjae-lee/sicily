@@ -20,6 +20,29 @@ Or install it yourself as:
 
     $ gem install sicily
 
+config/config.rb
+   
+    Sicily.configure do |config|
+        config.forbid_mv_to_children_folder = true
+        config.notify_when_done = true
+        config.num_thread_pool = 50
+    end
+
+config/.google_photo.rb
+
+    Sicily.configure_google do |config|
+        config.id = "abcd"
+        config.pw = "def"
+    end
+
+config/rules.rb
+
+    Sicily.on "/Users/paul/Downloads" do
+        fit_if_photo 2000, 2000
+        google_photo
+        mv "/Users/paul/Desktop/testfolder"
+    end
+
 ## Usage
 
 TODO: Write usage instructions here

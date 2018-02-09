@@ -1,3 +1,5 @@
+$skip_loading_user_config = true
+
 require "bundler/setup"
 require "sicily"
 
