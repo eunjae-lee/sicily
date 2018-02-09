@@ -6,6 +6,11 @@ module Sicily
     block.call Config.instance
   end
 
+  def self.configure_google(&block)
+    return if block.nil?
+    block.call GoogleCredential.instance
+  end
+
   def self.config
     Config.instance
   end
@@ -21,5 +26,10 @@ module Sicily
       @notify_when_done = true
       @num_thread_pool = 50
     end
+  end
+
+  class GoogleCredential
+    include Singleton
+    attr_accessor :id, :pw
   end
 end

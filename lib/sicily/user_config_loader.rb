@@ -1,5 +1,5 @@
 module Sicily
-  def self.load_user_config
+  def self.load_user_configs
     return if $skip_loading_user_config
 
     [".google_photo.rb", "config.rb", "rules.rb"].each { |filename|
