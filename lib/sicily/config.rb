@@ -3,7 +3,7 @@ require "singleton"
 module Sicily
   def self.configure(&block)
     return if block.nil?
-    block.call Config.instance
+    block.call self.config
   end
 
   def self.configure_google(&block)
