@@ -1,26 +1,34 @@
 require "listen"
-require "sicily/config"
+require "concurrent"
+require "sicily/batch_processor"
 
 module Sicily
   class Monitor
     def on(path, &block)
-      # listener = Listen.to(path) do |modified, added, removed|
-      #   added.each do |file|
-      #     ThreadPool.instance.post do
-      #       puts "Begin : #{file}"
-      #       MonitorProxy.new(file).instance_eval(&block)
-      #       if Preference.instance.notify_when_done?
-      #         #NotifyUtil.instance.notify(File.basename(file))
-      #       end
-      #       puts "End   : #{file}"
-      #     end
-      #   end
-      # end
-      # listener.start # not blocking
+      listener = Listen.to(path) do |modified, added, removed|
+        BatchProcessor.new.run(added, &block)
+      end
+      listener.start
     end
 
-    def num_thread_pool
-      Sicily.config.num_thread_pool
+    def process_added_files(files, &block)
+      pool = Concurrent::FixedThreadPool.new(@num_thread_pool)
+      files.each do |file|
+        pool.post do
+          process_added_file(file, &block)
+        end
+      end
+      if @notify_when_done
+        notify(files)
+      end
+    end
+
+    def process_added_file(file, &block)
+      FileProcessor.new(file).instance_eval(&block)
+    end
+
+    def notify(files)
+
     end
   end
 end

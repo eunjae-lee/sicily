@@ -5,8 +5,8 @@ module Sicily
     end
 
     it "know the number of threads to create" do
-      expect(Config.instance.num_thread_pool).to be > 0
-      # expect(Monitor.new.num_thread_pool).to be > 0
+      expect(Sicily.config.num_thread_pool).to be > 0
+      monitor = Monitor.new
     end
   end
 end

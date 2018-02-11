@@ -19,7 +19,7 @@ module Sicily
     include Singleton
     attr_accessor :forbid_mv_to_children_folder,
                   :notify_when_done,
-                  :num_thread_pool,
+                  :num_thread_pool
 
     def initialize
       @forbid_mv_to_children_folder = true
