@@ -20,32 +20,20 @@ Or install it yourself as:
 
     $ gem install sicily
 
-config/config.rb
-   
-    Sicily.configure do |config|
-        config.forbid_mv_to_children_folder = true
-        config.notify_when_done = true
-        config.num_thread_pool = 50
-    end
+And install a node package as:
 
-config/.google_photo.rb
-
-    Sicily.configure_google do |config|
-        config.id = "abcd"
-        config.pw = "def"
-    end
-
-config/rules.rb
-
-    Sicily.on "/Users/paul/Downloads" do
-        fit_if_photo 2000, 2000
-        google_photo
-        mv "/Users/paul/Desktop/testfolder"
-    end
+    $ npm install -g upload-gphotos
 
 ## Usage
 
-TODO: Write usage instructions here
+Go to your project path, and then execute:
+
+    $ sicily generate
+    
+Modify the generated files:
+
+    ./config/google_photo.rb
+    ./config/rules.rb
 
 ## Development
 
