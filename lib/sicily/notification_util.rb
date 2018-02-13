@@ -1,7 +1,7 @@
 require "terminal-notifier"
 
 module Sicily
-  class NotifyUtil
+  class NotificationUtil
     def self.notify(files)
       msg = files.map { |file|
         File.basename(file)
