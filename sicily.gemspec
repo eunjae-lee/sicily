@@ -15,9 +15,9 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.post_install_message = %q{
-To finish installation, please execute the following:
+  To finish installation, please execute the following:
 
-npm install -g upload-gphotos
+      $ npm install -g upload-gphotos
 }
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
