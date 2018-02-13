@@ -35,6 +35,18 @@ Modify the generated files:
     ./config/google_photo.rb
     ./config/rules.rb
 
+If you want to monitor just during the current terminal session, then execute:
+
+    $ sicily monitor
+    
+If you want to run a background job which runs forever, then execute:
+
+    $ sicily start
+    
+If you want to stop that background job, then execute:
+
+    $ sicily stop
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
