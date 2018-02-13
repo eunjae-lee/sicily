@@ -1,18 +1,24 @@
 require "sicily/config"
 require "sicily/file_processor"
+require "sicily/notify_util"
 
 module Sicily
   class BatchProcessor
     def run(files, &block)
+      notify_when_done = Sicily.config.notify_when_done
       pool = Concurrent::FixedThreadPool.new(Sicily.config.num_thread_pool)
+      latch = Concurrent::CountDownLatch.new(files.size)
       files.each do |file|
         pool.post do
           process_added_file(file, &block)
+          latch.count_down
         end
       end
-      # FIXME : Do I need something like `pool.join` here?
 
-      notify(files) if Sicily.config.notify_when_done
+      pool.post do
+        latch.wait
+        notify(files) if notify_when_done
+      end
     end
 
     def process_added_file(file, &block)
@@ -20,7 +26,7 @@ module Sicily
     end
 
     def notify(files)
-
+      NotifyUtil.notify(files)
     end
   end
 end
