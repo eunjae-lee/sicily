@@ -1,0 +1,100 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require "sicily"
+
+
+command = ARGV[0]
+
+case command
+  when "generate"
+    require "fileutils"
+    FileUtils.mkdir_p "./config"
+
+    god_content = <<-EOF
+God.watch do |w|
+  w.name = "sicily"
+  w.start = "sicily monitor"
+  w.dir = File.expand_path("\#{File.dirname(__FILE__)}/..")
+  w.keepalive
+end
+EOF
+    schedule_content = <<-EOF
+every :hour do
+	god_file = File.expand_path("\#{File.dirname(__FILE__)}/.sicily.god")
+  command "god -c \#{god_file}"
+end
+EOF
+    google_photo_content = <<-EOF
+Sicily.configure_google do |config|
+  config.id = "your id"
+  config.pw = "your pw"
+end
+EOF
+    rules_content = <<-EOF
+Sicily.on "~/your_folder" do
+  fit_if_photo 2000, 2000
+  google_photo
+  mv "~/your_another_folder"
+end
+EOF
+
+    File.write("./config/.sicily.god", god_content)
+    File.write("./config/.schedule.rb", schedule_content)
+    File.write("./config/google_photo.rb", google_photo_content)
+    File.write("./config/rules.rb", rules_content)
+
+    puts "Try edit the following files:"
+    puts "  ./config/google_photo.rb"
+    puts "  ./config/rules.rb"
+    puts ""
+    puts "To upload to Google Photos,"
+    puts "  turn on \"Allowing less secure apps to access your account\""
+    puts "  : https://support.google.com/accounts/answer/6010255"
+    puts "  *USE AT YOUR OWN RISK*"
+  when "monitor"
+    `echo test >> monitor.log`
+    necessary_config_files = ["rules.rb"]
+    config_files_to_load = ["google_photo.rb", "rules.rb"]
+
+    necessary_config_files.each { |file|
+      unless File.exists? "./config/#{file}"
+        puts "./config/#{file} is missing!"
+        puts "  Type: `sicily generate`"
+        exit
+      end
+    }
+
+    config_files_to_load.each { |filename|
+      path = "./config/#{filename}"
+      load(path) if File.exists?(path)
+    }
+
+    sleep
+  when "start"
+    command1 = "whenever --load-file ./config/.schedule.rb --update-crontab"
+    `#{command1}`
+
+    god_file = File.expand_path("./config/.sicily.god")
+    command2 = "god -c #{god_file}"
+    `#{command2}`
+  when "stop"
+    `god stop sicily`
+    `whenever --load-file ./config/.schedule.rb --clear-crontab`
+  else
+    banner = <<-EOF
+Usage:
+  Generating config files:
+    sicily generate
+  Start monitoring in this terminal session:
+    sicily monitor
+  Start monitoring forever:
+    sicily start
+  Stop monitoring forever:
+    sicily stop
+  EOF
+    puts banner
+end
+
+

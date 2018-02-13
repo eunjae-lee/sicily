@@ -5,7 +5,8 @@ require "sicily/batch_processor"
 module Sicily
   class Monitor
     def on(path, &block)
-      raise "unknown path" unless File.exists?(path)
+      path = File.expand_path(path)
+      raise "Unknown path : #{path}" unless File.exists?(path)
       listener = Listen.to(path) do |modified, added, removed|
         BatchProcessor.new.run(added, &block)
       end

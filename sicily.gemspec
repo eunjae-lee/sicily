@@ -14,6 +14,12 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/eunjae-lee/sicily"
   spec.license       = "MIT"
 
+  spec.post_install_message = %q{
+To finish installation, please execute the following:
+
+npm install -g upload-gphotos
+}
+
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
