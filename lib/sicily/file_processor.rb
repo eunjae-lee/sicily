@@ -1,6 +1,7 @@
 require "sicily/task/resize_task"
 require "sicily/task/google_photo_task"
 require "sicily/task/file_task"
+require "sicily/util/file_util"
 
 module Sicily
   class FileProcessor
@@ -17,20 +18,29 @@ module Sicily
     end
 
     def mv(dest_path)
-      cannot_move = Sicily.config.forbid_mv_to_children_folder &&
-          FileUtil.is_related?(@path, dest_path)
+      file_task_op :mv, dest_path
+    end
 
-      if cannot_move
+    def cp(dest_path)
+      file_task_op :cp, dest_path
+    end
+
+    private
+    def file_task_op(op, dest_path)
+      cannot_op = Sicily.config.forbid_new_file_in_subfolder &&
+          Util::FileUtil.is_related?(@path, dest_path)
+
+      if cannot_op
         raise [
-                  "Cannot move to children folder",
-                  "  src  : #{dir_src}",
-                  "  dest : #{path_dest}",
+                  "Cannot #{op} to child folder",
+                  "  src  : #{@path}",
+                  "  dest : #{dest_path}",
               ].join("\n")
         return
       end
 
-      final_dest_path = FileUtil.eval_dest_path(@path, dest_path)
-      Task::FileTask.mv @path, final_dest_path
+      final_dest_path = Util::FileUtil.eval_dest_path(@path, dest_path)
+      Task::FileTask.public_send op, @path, final_dest_path
     end
   end
 end

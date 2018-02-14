@@ -12,12 +12,12 @@ module Sicily
 
   class Config
     include Singleton
-    attr_accessor :forbid_mv_to_children_folder,
+    attr_accessor :forbid_new_file_in_subfolder,
                   :notify_when_done,
                   :num_thread_pool
 
     def initialize
-      @forbid_mv_to_children_folder = true
+      @forbid_new_file_in_subfolder = true
       @notify_when_done = true
       @num_thread_pool = 50
     end

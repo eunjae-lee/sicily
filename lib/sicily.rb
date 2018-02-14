@@ -21,8 +21,8 @@ module Sicily
 
   def self.can_monitor?(prev_paths, new_path)
     prev_paths.each do |prev_path|
-      return false if FileUtil.is_related?(prev_path, new_path) ||
-          FileUtil.is_related?(new_path, prev_path)
+      return false if Util::FileUtil.is_related?(prev_path, new_path) ||
+          Util::FileUtil.is_related?(new_path, prev_path)
     end
 
     true

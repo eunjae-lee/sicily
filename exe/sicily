@@ -38,6 +38,11 @@ Sicily.on "~/your_folder" do
   google_photo
   mv "~/your_another_folder/%Y/%m/%d"
 end
+
+Sicily.on "~/your_folder2" do
+  fit_if_photo 1000, 1000
+  cp "~/your_another_folder/%Y/%m/%d"
+end
 EOF
 
     File.write("./config/.sicily.god", god_content)
