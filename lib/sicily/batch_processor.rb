@@ -1,6 +1,6 @@
 require "sicily/config"
 require "sicily/file_processor"
-require "sicily/notification_util"
+require "sicily/util/notification_util"
 
 module Sicily
   class BatchProcessor
@@ -32,7 +32,7 @@ module Sicily
     end
 
     def notify(files)
-      NotificationUtil.notify(files)
+      Util::NotificationUtil.notify(files)
     end
   end
 end

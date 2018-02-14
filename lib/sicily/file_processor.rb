@@ -17,6 +17,18 @@ module Sicily
     end
 
     def mv(dest_path)
+      cannot_move = Sicily.config.forbid_mv_to_children_folder &&
+          FileUtil.is_related?(@path, dest_path)
+
+      if cannot_move
+        raise [
+                  "Cannot move to children folder",
+                  "  src  : #{dir_src}",
+                  "  dest : #{path_dest}",
+              ].join("\n")
+        return
+      end
+
       Task::FileTask.mv @path, dest_path
     end
   end

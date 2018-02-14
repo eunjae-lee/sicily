@@ -36,7 +36,7 @@ EOF
 Sicily.on "~/your_folder" do
   fit_if_photo 2000, 2000
   google_photo
-  mv "~/your_another_folder"
+  mv "~/your_another_folder/%Y/%m/%d"
 end
 EOF
 
