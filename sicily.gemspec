@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "whenever", "~> 0.10.0"
   spec.add_dependency "terminal-notifier", "~> 2.0.0"
   spec.add_dependency "concurrent-ruby", "~> 1.0.5"
+  spec.add_dependency "exifr", "~> 1.3.3"
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"

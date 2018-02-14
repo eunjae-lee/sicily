@@ -29,7 +29,8 @@ module Sicily
         return
       end
 
-      Task::FileTask.mv @path, dest_path
+      final_dest_path = FileUtil.eval_dest_path(@path, dest_path)
+      Task::FileTask.mv @path, final_dest_path
     end
   end
 end
