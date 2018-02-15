@@ -12,6 +12,10 @@ module Sicily
         file_op :cp, path_src, path_dest
       end
 
+      def self.rm(path)
+        FileUtils.rm path
+      end
+
       private
       def self.file_op(op, path_src, path_dest)
         path_src = File.expand_path path_src

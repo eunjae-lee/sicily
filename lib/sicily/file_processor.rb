@@ -25,6 +25,10 @@ module Sicily
       file_task_op :cp, dest_path
     end
 
+    def rm
+      Task::FileTask.rm @path
+    end
+
     private
     def file_task_op(op, dest_path)
       cannot_op = Sicily.config.forbid_new_file_in_subfolder &&
