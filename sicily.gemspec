@@ -23,6 +23,8 @@ Gem::Specification.new do |spec|
   To finish installation, please execute the following:
     $ npm install -g upload-gphotos
 
+  And imagemagick should be installed on this computer. If not, do something like:
+    $ brew install imagemagick
 
 }
 
