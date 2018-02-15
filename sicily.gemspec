@@ -14,6 +14,10 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/eunjae-lee/sicily"
   spec.license       = "MIT"
 
+  spec.metadata = {
+      'changelog_uri' => "https://github.com/eunjae-lee/sicily/blob/master/CHANGELOG.md"
+  }
+
   spec.post_install_message = %q{
 
   To finish installation, please execute the following:
