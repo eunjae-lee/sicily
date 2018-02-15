@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/sicily.svg)](https://badge.fury.io/rb/sicily)
+
 # Sicily
 
 A rule-based photo organizer written in Ruby
