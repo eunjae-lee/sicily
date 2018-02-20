@@ -1,9 +1,11 @@
+require "fastimage"
+
 module Sicily
   module Util
     class ImageUtil
       def self.get_size(path)
-        image = MiniMagick::Image.new(path)
-        [image.width, image.height]
+        size = FastImage.size(path)
+        [size[0], size[1]]
       end
     end
   end

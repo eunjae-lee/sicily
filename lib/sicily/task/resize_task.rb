@@ -1,12 +1,23 @@
-require "mini_magick"
+require "sicily/util/image_util"
+require "fastimage_resize"
 
 module Sicily
   module Task
     class ResizeTask
-      def self.fit_if_photo(path, width, height)
-        image = MiniMagick::Image.new(path)
-        if image.valid?
-          image.resize "#{width}x#{height}>"
+      def self.fit_if_photo(path, container_width, container_height)
+        size = Util::ImageUtil.get_size(path)
+        image_width = size[0]
+        image_height = size[1]
+
+        dest_size = size_to_fit container_width, container_height, image_width, image_height
+        FastImage.resize(path, dest_size[0], dest_size[1], :outfile => path)
+      end
+
+      def self.size_to_fit(container_width, container_height, image_width, image_height)
+        if container_width*image_height > container_height*image_width
+          [(image_width*container_height/image_height).to_i, container_height]
+        else
+          [container_width, (image_height*container_width/image_width).to_i]
         end
       end
     end

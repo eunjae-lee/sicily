@@ -23,9 +23,8 @@ Gem::Specification.new do |spec|
   To finish installation, please execute the following:
     $ npm install -g upload-gphotos
 
-  And imagemagick should be installed on this computer.
-If not, do something like the following:
-    $ brew install imagemagick
+  And Libgd is required for this gem. Please install it like the following:
+    $ brew install gd
 
 }
 
@@ -36,13 +35,14 @@ If not, do something like the following:
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "mini_magick", "~> 4.8.0"
   spec.add_dependency "listen", "~> 3.1.5"
   spec.add_dependency "god", "~> 0.13.7"
   spec.add_dependency "whenever", "~> 0.10.0"
   spec.add_dependency "terminal-notifier", "~> 2.0.0"
   spec.add_dependency "concurrent-ruby", "~> 1.0.5"
   spec.add_dependency "exifr", "~> 1.3.3"
+  spec.add_dependency "fastimage", "~> 2.1.1"
+  spec.add_dependency "fastimage_resize", "~> 2.0.3"
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
