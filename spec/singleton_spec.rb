@@ -5,7 +5,6 @@ RSpec.describe Singleton do
     attr_accessor :foo
 
     def initialize
-      puts "NotSingletonClass.initialize"
       @foo = "bar"
     end
   end
@@ -16,7 +15,6 @@ RSpec.describe Singleton do
     attr_accessor :foo
 
     def initialize
-      puts "SingletonClass.initialize"
       @foo = "bar"
     end
   end

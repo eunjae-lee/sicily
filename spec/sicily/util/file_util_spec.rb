@@ -18,7 +18,7 @@ module Sicily
         expect(FileUtil.extract_time("spec/assets/IMG_2407_NO_EXIF.JPG")).not_to be_nil
 
         expect(FileUtil.eval_dest_path("spec/assets/IMG_2407.JPG", "dest_path/%Y/%m/%d")).to eq("dest_path/2018/01/27")
-        expect(FileUtil.eval_dest_path("spec/assets/IMG_2407_NO_EXIF.JPG", "dest_path/%Y/%m/%d")).to eq("dest_path/2018/02/14")
+        expect(FileUtil.eval_dest_path("spec/assets/IMG_2407_NO_EXIF.JPG", "dest_path/%Y/%m/%d")).to eq("dest_path/2018/02/15")
       end
     end
   end
