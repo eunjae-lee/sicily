@@ -4,8 +4,8 @@ module Sicily
   module Task
     class GooglePhotoTask
       def self.upload(path)
-        id = GoogleCredential.instance.id
-        pw = GoogleCredential.instance.pw
+        id = Sicily.config_google.id
+        pw = Sicily.config_google.pw
 
         if id.to_s.empty? or pw.to_s.empty?
           raise "no google credential"

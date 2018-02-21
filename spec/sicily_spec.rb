@@ -7,6 +7,16 @@ RSpec.describe Sicily do
     expect(false).not_to eq(true)
   end
 
+  it "returns config" do
+    expect(Sicily.config).not_to be_nil
+  end
+
+  it "has default configs" do
+    expect(Sicily.config.forbid_new_file_in_subfolder).to eq(true)
+    expect(Sicily.config.notify_when_done).to eq(true)
+    expect(Sicily.config.num_thread_pool).to eq(50)
+  end
+
   it "works with configure_google" do
     expect {
       Sicily.configure_google
@@ -24,6 +34,9 @@ RSpec.describe Sicily do
         config.pw = "def"
       }.not_to raise_error
     end
+
+    expect(Sicily.config_google.id).to eq("abcd")
+    expect(Sicily.config_google.pw).to eq("def")
   end
 
   it "works with on" do
