@@ -2,9 +2,12 @@ require "sicily/version"
 require "sicily/config"
 require "sicily/monitor"
 require "sicily/util/file_util"
+require "sicily/task_loader"
 
 module Sicily
   @monitored_paths = []
+
+  TaskLoader.new.load_all_tasks
 
   def self.on(path, &block)
     if self.can_monitor?(@monitored_paths, path)
