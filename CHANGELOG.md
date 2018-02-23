@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4
+* Add required ruby version
+* It's now easy to add new generator.
+
 ## 0.1.3
 * It's now easy to create new task.
 
