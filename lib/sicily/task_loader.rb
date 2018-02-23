@@ -5,9 +5,9 @@ module Sicily
         require file
 
         module_name = camelize(File.basename(file, ".*"))
-        possibly_module = Task.const_get(module_name)
-        if possibly_module.class.name == "Module"
-          FileProcessor.send(:include, possibly_module)
+        maybe_module = Task.const_get(module_name)
+        if maybe_module.class.name == "Module"
+          FileProcessor.send(:include, maybe_module)
         end
       }
     end
