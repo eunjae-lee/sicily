@@ -10,54 +10,33 @@ command = ARGV[0]
 case command
   when "generate"
     require "fileutils"
+    require "sicily/generator"
+
+    Dir["./generator/*.rb"].each {|file|
+      require file
+    }
+
+    FileUtils.rm_rf "./config"
     FileUtils.mkdir_p "./config"
 
-    god_content = <<-EOF
-God.watch do |w|
-  w.name = "sicily"
-  w.start = "sicily monitor"
-  w.dir = File.expand_path("\#{File.dirname(__FILE__)}/..")
-  w.keepalive
-end
-EOF
-    schedule_content = <<-EOF
-every :hour do
-	god_file = File.expand_path("\#{File.dirname(__FILE__)}/.sicily.god")
-  command "god -c \#{god_file}"
-end
-EOF
-    google_photo_content = <<-EOF
-Sicily.configure_google do |config|
-  config.id = "your id"
-  config.pw = "your pw"
-end
-EOF
-    rules_content = <<-EOF
-Sicily.on "~/your_folder" do
-  fit_if_photo 2000, 2000
-  google_photo
-  mv "~/your_another_folder/%Y/%m/%d"
-end
+    Sicily.generators.each do |generator|
+      File.write("./config/#{generator.filename}", generator.content)
+    end
 
-Sicily.on "~/your_folder2" do
-  fit_if_photo 1000, 1000
-  cp "~/your_another_folder/%Y/%m/%d"
-end
-EOF
+    files_to_edit = Sicily.generators.map { |t| t.filename }.select { |t| not t.start_with?(".") }
+    messages_to_display = Sicily.generators.map { |t| t.post_generate_message }.select { |t| not t.to_s.empty? }
 
-    File.write("./config/.sicily.god", god_content)
-    File.write("./config/.schedule.rb", schedule_content)
-    File.write("./config/google_photo.rb", google_photo_content)
-    File.write("./config/rules.rb", rules_content)
+    if files_to_edit.size > 0
+      puts "Try edit the following files:"
+      files_to_edit.each do |file|
+        puts "  ./config/#{file}"
+      end
+    end
 
-    puts "Try edit the following files:"
-    puts "  ./config/google_photo.rb"
-    puts "  ./config/rules.rb"
-    puts ""
-    puts "To upload to Google Photos,"
-    puts "  turn on \"Allowing less secure apps to access your account\""
-    puts "  : https://support.google.com/accounts/answer/6010255"
-    puts "  *USE AT YOUR OWN RISK*"
+    if messages_to_display.size > 0
+      puts ""
+      puts messages_to_display.join("\n")
+    end
   when "monitor"
     `echo test >> monitor.log`
     necessary_config_files = ["rules.rb"]
