@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  spec.required_ruby_version = '>= 2.2.5'
 
   spec.add_dependency "listen", "~> 3.1.5"
   spec.add_dependency "god", "~> 0.13.7"
