@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.3
+* It's now easy to create new task.
+
 ## 0.1.2
 * Add `rm`
 
