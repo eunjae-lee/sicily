@@ -34,14 +34,14 @@ Go to your project path, and then execute:
 
 ### Modify the generated files
 
-./config/google_photo.rb
+`./config/google_photo.rb`
 
     Sicily.configure_google do |config|
       config.id = "your id"
       config.pw = "your pw"
     end
 
-./config/rules.rb
+`./config/rules.rb`
 
     Sicily.on "~/your_folder" do
       fit_if_photo 2000, 2000
