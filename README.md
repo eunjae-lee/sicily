@@ -26,14 +26,35 @@ And install a node package as:
 
 ## Usage
 
+### Generate config files
+
 Go to your project path, and then execute:
 
     $ sicily generate
-    
-Modify the generated files:
 
-    ./config/google_photo.rb
-    ./config/rules.rb
+### Modify the generated files
+
+./config/google_photo.rb
+
+    Sicily.configure_google do |config|
+      config.id = "your id"
+      config.pw = "your pw"
+    end
+
+./config/rules.rb
+
+    Sicily.on "~/your_folder" do
+      fit_if_photo 2000, 2000
+      google_photo
+      mv "~/your_another_folder/%Y/%m/%d"
+    end
+    
+    Sicily.on "~/your_folder2" do
+      fit_if_photo 1000, 1000
+      cp "~/your_another_folder/%Y/%m/%d"
+    end
+
+### Start & Stop
 
 If you want to monitor just during the current terminal session, then execute:
 
