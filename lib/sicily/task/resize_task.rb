@@ -16,10 +16,7 @@ module Sicily
     module ResizeTask
       def fit_if_photo(container_width, container_height)
         size = Util::ImageUtil.get_size(@path)
-        image_width = size[0]
-        image_height = size[1]
-
-        dest_size = SizeCalculator.size_to_fit container_width, container_height, image_width, image_height
+        dest_size = SizeCalculator.size_to_fit container_width, container_height, size[0], size[1]
         FastImage.resize(@path, dest_size[0], dest_size[1], :outfile => @path)
       end
     end
