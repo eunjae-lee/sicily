@@ -1,7 +1,11 @@
-Metrics/LineLength:
-  Max: 100
 Documentation:
   Enabled: false
+Metrics/LineLength:
+  Max: 100
 Metrics/BlockLength:
   Exclude:
     - 'sicily.gemspec'
+    - "**/*_spec.rb"
+Metrics/ModuleLength:
+  Exclude:
+    - "**/*_spec.rb"
