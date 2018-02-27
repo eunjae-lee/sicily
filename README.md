@@ -31,6 +31,8 @@ And install a node package as:
 
 Go to your project path, and then execute:
 
+    $ mkdir my-project
+    $ cd my-project
     $ sicily generate
 
 ### Modify the generated files
