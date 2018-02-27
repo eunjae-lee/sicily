@@ -6,6 +6,7 @@ require 'sicily/config'
 require 'sicily/monitor'
 require 'sicily/util/file_util'
 require 'sicily/task_loader'
+require 'sicily/error/monitor_error'
 
 module Sicily
   @monitored_paths = []
@@ -16,13 +17,17 @@ module Sicily
     if can_monitor?(@monitored_paths, path)
       start_monitor!(path, &user_rule_block)
     else
-      puts "cannot monitor : #{path}"
+      Sicily.logger.error "Monitor Failed. Path duplicated : #{path}"
     end
   end
 
   def self.start_monitor!(path, &user_rule_block)
     @monitored_paths << File.expand_path(path)
-    Monitor.new.on(path, &user_rule_block)
+    begin
+      Monitor.new.on(path, &user_rule_block)
+    rescue MonitorError => e
+      Sicily.logger.error e.message
+    end
   end
 
   def self.can_monitor?(prev_paths, new_path)

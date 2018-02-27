@@ -13,3 +13,5 @@ Metrics/MethodLength:
   Max: 5
 Metrics/ParameterLists:
   Max: 4
+Style/GlobalVars:
+  AllowedVariables: ['$SICILY_LOG_TO_FILE']
