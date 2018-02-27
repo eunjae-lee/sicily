@@ -13,7 +13,6 @@ RSpec.describe Sicily do
 
   it "has default configs" do
     expect(Sicily.config.forbid_new_file_in_subfolder).to eq(true)
-    expect(Sicily.config.notify_when_done).to eq(true)
     expect(Sicily.config.num_thread_pool).to eq(50)
   end
 
