@@ -20,9 +20,7 @@ module Sicily
         return unless cannot_op(path_dest, path_src)
 
         msg = [
-          'Cannot do file operation to child folder',
-          "  src  : #{path_src}",
-          "  dest : #{path_dest}"
+          'Cannot do file operation to child folder', "src  : #{path_src}", "dest : #{path_dest}"
         ].join('\n')
         raise msg
       end

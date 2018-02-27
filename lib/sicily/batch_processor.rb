@@ -12,11 +12,11 @@ module Sicily
       @latch = Concurrent::CountDownLatch.new(@files.size)
     end
 
-    def run(&block)
+    def run(&user_rule_block)
       return if @files.empty?
 
       notify_beginning
-      process_each_file_in_thread(block)
+      process_files_in_thread(&user_rule_block)
       notify_done_when_finished
     end
 
@@ -24,12 +24,16 @@ module Sicily
       Util::NotificationUtil.notify_beginning(@files)
     end
 
-    def process_each_file_in_thread(block)
+    def process_files_in_thread(&user_rule_block)
       @files.each do |file|
-        @pool.post do
-          process_added_file(file, &block)
-          @latch.count_down
-        end
+        process_each_file_in_thread file, &user_rule_block
+      end
+    end
+
+    def process_each_file_in_thread(file, &user_rule_block)
+      @pool.post do
+        process_added_file(file, &user_rule_block)
+        @latch.count_down
       end
     end
 
@@ -40,9 +44,9 @@ module Sicily
       end
     end
 
-    def process_added_file(file, &block)
+    def process_added_file(file, &user_rule_block)
       begin
-        FileProcessor.new(file).instance_eval(&block)
+        FileProcessor.new(file).instance_eval(&user_rule_block)
       rescue Exception => e
         # FIXME : need to log `e.message`
       end
