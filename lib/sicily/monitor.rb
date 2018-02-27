@@ -17,7 +17,7 @@ module Sicily
 
     def validate_and_expand_path(path)
       path = File.expand_path(path)
-      raise MonitorError.new("Monitor Failed. Unknown path : #{path}") unless File.exist?(path)
+      raise MonitorError, "Monitor Failed. Unknown path : #{path}" unless File.exist?(path)
       path
     end
 
