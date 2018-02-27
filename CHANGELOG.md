@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.6
+* It consumes already existing files on start-up.
+
 ## 0.1.5
 * It waits 10 seconds before taking actions in case when file is still changing
 
