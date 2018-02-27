@@ -45,7 +45,9 @@ module Sicily
     end
 
     def process_added_file(file, &user_rule_block)
-      FileProcessor.new(file).instance_eval(&user_rule_block)
+      file_processor = FileProcessor.new(file)
+      file_processor.instance_eval(&user_rule_block)
+      file_processor.info 'Done'
     rescue RuntimeError => e
       Sicily.logger.error e.message
     end

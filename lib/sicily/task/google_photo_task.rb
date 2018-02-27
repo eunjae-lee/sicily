@@ -19,31 +19,38 @@ module Sicily
   end
 
   module Task
-    module GooglePhotoTask
-      def google_photo
+    class Base
+      def self.google_photo(path)
         validate_credentials!
-        cmd = build_command
+        cmd = build_command(path)
         execute_command(cmd)
       end
 
-      def execute_command(cmd)
+      def self.execute_command(cmd)
         `#{cmd}`
       end
 
-      def build_command
-        "upload-gphotos \"#{@path}\" -u #{id} -p #{pw}"
+      def self.build_command(path)
+        "upload-gphotos \"#{path}\" -u #{id} -p #{pw}"
       end
 
-      def pw
+      def self.pw
         Sicily.config_google.pw
       end
 
-      def id
+      def self.id
         Sicily.config_google.id
       end
 
-      def validate_credentials!
+      def self.validate_credentials!
         raise 'no google credential' if id.to_s.empty? || pw.to_s.empty?
+      end
+    end
+
+    module GooglePhotoTask
+      def google_photo
+        info 'google_photo'
+        Base.google_photo(@path)
       end
     end
   end

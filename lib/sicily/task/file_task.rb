@@ -35,16 +35,19 @@ module Sicily
 
     module FileTask
       def mv(path_dest)
+        info "mv to #{path_dest}"
         path_dest = Base.prepare_dest_path(@path, path_dest)
         FileUtils.mv @path, path_dest
       end
 
       def cp(path_dest)
+        info "cp to #{path_dest}"
         path_dest = Base.prepare_dest_path(@path, path_dest)
         FileUtils.cp @path, path_dest
       end
 
       def rm
+        info 'rm'
         FileUtils.rm @path
       end
     end
