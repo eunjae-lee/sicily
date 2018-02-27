@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.metadata = {
-    changelog_uri: 'https://github.com/eunjae-lee/sicily/blob/master/CHANGELOG.md'
+    'changelog_uri' => 'https://github.com/eunjae-lee/sicily/blob/master/CHANGELOG.md'
   }
 
   spec.post_install_message = <<~MESSAGE
@@ -27,13 +27,13 @@ Gem::Specification.new do |spec|
       $ brew install gd
   MESSAGE
 
-  spec.files = `git ls-files -z`.split('\x0').reject do |f|
+  spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
   spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
-  spec.required_ruby_version = '>= 2.3.0'
+  spec.required_ruby_version = '>= 2.3.1'
 
   spec.add_dependency 'concurrent-ruby', '~> 1.0.5'
   spec.add_dependency 'exifr', '~> 1.3.3'
