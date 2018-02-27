@@ -43,15 +43,20 @@ Go to your project path, and then execute:
 
 `./config/rules.rb`
 
-    Sicily.on "~/your_folder" do
+    Sicily.on '~/your_folder' do
       fit_if_photo 2000, 2000
       google_photo
-      mv "~/your_another_folder/%Y/%m/%d"
+      mv '~/your_another_folder/%Y/%m/%d'
     end
     
-    Sicily.on "~/your_folder2" do
+    Sicily.on '~/your_folder2' do
       fit_if_photo 1000, 1000
-      cp "~/your_another_folder/%Y/%m/%d"
+      cp '~/your_another_folder/%Y/%m/%d'
+    end
+    
+    Sicily.on '~/your_folder3' do
+      google_photo
+      rm
     end
 
 ### Start & Stop

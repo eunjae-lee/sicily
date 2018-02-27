@@ -1,0 +1,7 @@
+Metrics/LineLength:
+  Max: 100
+Documentation:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'sicily.gemspec'

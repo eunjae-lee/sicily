@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Sicily
   class Generator
     attr_accessor :filename, :content, :post_generate_message

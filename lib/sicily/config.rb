@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Sicily
   class << self
     attr_accessor :config

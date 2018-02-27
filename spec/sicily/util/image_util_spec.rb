@@ -1,15 +1,17 @@
-require "sicily/util/image_util"
+# frozen_string_literal: true
+
+require 'sicily/util/image_util'
 
 module Sicily
   module Util
     RSpec.describe ImageUtil do
-      it "get sizes correctly" do
+      it 'get sizes correctly' do
         [
-            ["DSCF0008.JPG", 6000, 4000],
-            ["DSCF0063.JPG", 6000, 4000],
-            ["DSCF0088.JPG", 6000, 4000],
-            ["IMG_2407_NO_EXIF.jpg", 3024, 3024],
-            ["IMG_2407.JPG", 3024, 3024],
+          ['DSCF0008.JPG', 6000, 4000],
+          ['DSCF0063.JPG', 6000, 4000],
+          ['DSCF0088.JPG', 6000, 4000],
+          ['IMG_2407_NO_EXIF.jpg', 3024, 3024],
+          ['IMG_2407.JPG', 3024, 3024]
         ].each do |item|
           filename = item[0]
           expected_width = item[1]

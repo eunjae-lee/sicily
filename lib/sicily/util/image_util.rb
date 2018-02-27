@@ -1,4 +1,6 @@
-require "fastimage"
+# frozen_string_literal: true
+
+require 'fastimage'
 
 module Sicily
   module Util

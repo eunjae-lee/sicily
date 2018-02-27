@@ -1,4 +1,6 @@
-require "exifr/jpeg"
+# frozen_string_literal: true
+
+require 'exifr/jpeg'
 
 module Sicily
   module Util

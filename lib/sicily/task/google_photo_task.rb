@@ -1,4 +1,6 @@
-require "sicily/config"
+# frozen_string_literal: true
+
+require 'sicily/config'
 
 module Sicily
   class << self
@@ -41,7 +43,7 @@ module Sicily
       end
 
       def validate_credentials!
-        raise "no google credential" if id.to_s.empty? or pw.to_s.empty?
+        raise 'no google credential' if id.to_s.empty? || pw.to_s.empty?
       end
     end
   end

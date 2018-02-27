@@ -1,6 +1,8 @@
-require "sicily/config"
-require "sicily/file_processor"
-require "sicily/util/notification_util"
+# frozen_string_literal: true
+
+require 'sicily/config'
+require 'sicily/file_processor'
+require 'sicily/util/notification_util'
 
 module Sicily
   class BatchProcessor

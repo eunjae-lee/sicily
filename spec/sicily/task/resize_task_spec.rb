@@ -1,6 +1,8 @@
-require "sicily/task/resize_task"
-require "sicily/util/image_util"
-require "fileutils"
+# frozen_string_literal: true
+
+require 'sicily/task/resize_task'
+require 'sicily/util/image_util'
+require 'fileutils'
 
 module Sicily
   module Task
@@ -15,14 +17,14 @@ module Sicily
         FileUtils.rm_rf(@tmp_path)
       end
 
-      it "resizes to fit" do
+      it 'resizes to fit' do
         [
-            ["IMG_2407.JPG", 1000, 1000, 1000, 1000],
-            ["IMG_2407_NO_EXIF.jpg", 1000, 1000, 1000, 1000],
-            ["DSCF0008.JPG", 3000, 2000, 3000, 2000],
-            ["DSCF0008.JPG", 3000, 3000, 3000, 2000],
-            ["DSCF0063.JPG", 3000, 3000, 3000, 2000],
-            ["DSCF0088.JPG", 3000, 3000, 3000, 2000],
+          ['IMG_2407.JPG', 1000, 1000, 1000, 1000],
+          ['IMG_2407_NO_EXIF.jpg', 1000, 1000, 1000, 1000],
+          ['DSCF0008.JPG', 3000, 2000, 3000, 2000],
+          ['DSCF0008.JPG', 3000, 3000, 3000, 2000],
+          ['DSCF0063.JPG', 3000, 3000, 3000, 2000],
+          ['DSCF0088.JPG', 3000, 3000, 3000, 2000]
         ].each do |item|
           filename = item[0]
           resize_param_width = item[1]
@@ -33,7 +35,9 @@ module Sicily
           FileUtils.cp("#{Dir.pwd}/spec/assets/#{filename}", @tmp_path)
 
           copied_path = "#{@tmp_path}/#{filename}"
-          FileProcessor.new(copied_path).fit_if_photo(resize_param_width, resize_param_height)
+          FileProcessor
+            .new(copied_path)
+            .fit_if_photo(resize_param_width, resize_param_height)
           size = Util::ImageUtil.get_size(copied_path)
 
           expect(size[0]).to eq(expected_width)

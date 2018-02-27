@@ -1,4 +1,6 @@
-require "fileutils"
+# frozen_string_literal: true
+
+require 'fileutils'
 
 module Sicily
   module Task
@@ -18,31 +20,31 @@ module Sicily
         FileUtils.rm_rf(@tmp_path2)
       end
 
-      it "copies" do
-        expect(File.exists?("#{@tmp_path2}/test")).to eq(false)
+      it 'copies' do
+        expect(File.exist?("#{@tmp_path2}/test")).to eq(false)
         path = "#{@tmp_path1}/test"
         FileUtils.touch(path)
         FileProcessor.new(path).cp(@tmp_path2)
-        File.exists?("#{@tmp_path2}/test")
-        expect(File.exists?("#{@tmp_path2}/test")).to eq(true)
+        File.exist?("#{@tmp_path2}/test")
+        expect(File.exist?("#{@tmp_path2}/test")).to eq(true)
       end
 
-      it "moves" do
-        expect(File.exists?("#{@tmp_path2}/test")).to eq(false)
+      it 'moves' do
+        expect(File.exist?("#{@tmp_path2}/test")).to eq(false)
         path = "#{@tmp_path1}/test"
         FileUtils.touch(path)
         FileProcessor.new(path).mv(@tmp_path2)
-        File.exists?("#{@tmp_path2}/test")
-        expect(File.exists?("#{@tmp_path2}/test")).to eq(true)
-        expect(File.exists?(path)).to eq(false)
+        File.exist?("#{@tmp_path2}/test")
+        expect(File.exist?("#{@tmp_path2}/test")).to eq(true)
+        expect(File.exist?(path)).to eq(false)
       end
 
-      it "removes" do
+      it 'removes' do
         path = "#{@tmp_path1}/test"
         FileUtils.touch(path)
-        expect(File.exists?(path)).to eq(true)
+        expect(File.exist?(path)).to eq(true)
         FileProcessor.new(path).rm
-        expect(File.exists?(path)).to eq(false)
+        expect(File.exist?(path)).to eq(false)
       end
     end
   end

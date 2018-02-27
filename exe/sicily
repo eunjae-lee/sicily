@@ -1,84 +1,83 @@
 #!/usr/bin/env ruby
 
-$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+# frozen_string_literal: true
 
-require "sicily"
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), ['..', 'lib'])
 
+require 'sicily'
 
 command = ARGV[0]
 
 case command
-  when "generate"
-    require "fileutils"
-    require "sicily/generator"
+when 'generate'
+  require 'fileutils'
+  require 'sicily/generator'
 
-    Dir["./generator/*.rb"].each {|file|
-      require file
-    }
+  Dir['./generator/*.rb'].each do |file|
+    require file
+  end
 
-    FileUtils.rm_rf "./config"
-    FileUtils.mkdir_p "./config"
+  FileUtils.rm_rf './config'
+  FileUtils.mkdir_p './config'
 
-    Sicily.generators.each do |generator|
-      File.write("./config/#{generator.filename}", generator.content)
+  Sicily.generators.each do |generator|
+    File.write("./config/#{generator.filename}", generator.content)
+  end
+
+  files_to_edit = Sicily.generators.map(&:filename).reject { |t| t.start_with?('.') }
+  messages_to_display = Sicily.generators.map(&:post_generate_message).reject { |t| t.to_s.empty? }
+
+  unless files_to_edit.empty?
+    puts 'Try edit the following files:'
+    files_to_edit.each do |file|
+      puts "  ./config/#{file}"
     end
+  end
 
-    files_to_edit = Sicily.generators.map { |t| t.filename }.select { |t| not t.start_with?(".") }
-    messages_to_display = Sicily.generators.map { |t| t.post_generate_message }.select { |t| not t.to_s.empty? }
+  unless messages_to_display.empty?
+    puts ''
+    puts messages_to_display.join('\n')
+  end
+when 'monitor'
+  `echo test >> monitor.log`
+  necessary_config_files = ['rules.rb']
+  config_files_to_load = ['google_photo.rb', 'rules.rb']
 
-    if files_to_edit.size > 0
-      puts "Try edit the following files:"
-      files_to_edit.each do |file|
-        puts "  ./config/#{file}"
-      end
-    end
+  necessary_config_files.each do |file|
+    next if File.exist? "./config/#{file}"
 
-    if messages_to_display.size > 0
-      puts ""
-      puts messages_to_display.join("\n")
-    end
-  when "monitor"
-    `echo test >> monitor.log`
-    necessary_config_files = ["rules.rb"]
-    config_files_to_load = ["google_photo.rb", "rules.rb"]
+    puts "./config/#{file} is missing!"
+    puts '  Type: `sicily generate`'
+    exit
+  end
 
-    necessary_config_files.each { |file|
-      unless File.exists? "./config/#{file}"
-        puts "./config/#{file} is missing!"
-        puts "  Type: `sicily generate`"
-        exit
-      end
-    }
+  config_files_to_load.each do |filename|
+    path = "./config/#{filename}"
+    load(path) if File.exist?(path)
+  end
 
-    config_files_to_load.each { |filename|
-      path = "./config/#{filename}"
-      load(path) if File.exists?(path)
-    }
+  sleep
+when 'start'
+  command1 = 'whenever --load-file ./config/.schedule.rb --update-crontab'
+  `#{command1}`
 
-    sleep
-  when "start"
-    command1 = "whenever --load-file ./config/.schedule.rb --update-crontab"
-    `#{command1}`
-
-    god_file = File.expand_path("./config/.sicily.god")
-    command2 = "god -c #{god_file}"
-    `#{command2}`
-  when "stop"
-    `god stop sicily`
-    `whenever --load-file ./config/.schedule.rb --clear-crontab`
-  else
-    banner = <<-EOF
-Usage:
-  Generating config files:
-    sicily generate
-  Start monitoring in this terminal session:
-    sicily monitor
-  Start monitoring forever:
-    sicily start
-  Stop monitoring forever:
-    sicily stop
-  EOF
-    puts banner
+  god_file = File.expand_path('./config/.sicily.god')
+  command2 = "god -c #{god_file}"
+  `#{command2}`
+when 'stop'
+  `god stop sicily`
+  `whenever --load-file ./config/.schedule.rb --clear-crontab`
+else
+  banner = <<~BANNER
+    Usage:
+      Generating config files:
+        sicily generate
+      Start monitoring in this terminal session:
+        sicily monitor
+      Start monitoring forever:
+        sicily start
+      Stop monitoring forever:
+        sicily stop
+  BANNER
+  puts banner
 end
-
-
