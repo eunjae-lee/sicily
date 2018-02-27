@@ -35,13 +35,6 @@ Go to your project path, and then execute:
 
 ### Modify the generated files
 
-`./config/google_photo.rb`
-
-    Sicily.configure_google do |config|
-      config.id = "your id"
-      config.pw = "your pw"
-    end
-
 `./config/rules.rb`
 
     Sicily.on '~/your_folder' do
@@ -58,6 +51,13 @@ Go to your project path, and then execute:
     Sicily.on '~/your_folder3' do
       google_photo
       rm
+    end
+
+`./config/google_photo.rb` (optional)
+
+    Sicily.configure_google do |config|
+      config.id = 'your id'
+      config.pw = 'your pw'
     end
 
 ### Start & Stop
