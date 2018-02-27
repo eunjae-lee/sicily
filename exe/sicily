@@ -2,6 +2,7 @@
 
 # frozen_string_literal: true
 
+$SICILY_LOG_TO_FILE = (ENV['SICILY_LOG'] == 'file')
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), ['..', 'lib'])
 
 require 'sicily'

@@ -6,7 +6,7 @@ module Sicily
     generator.content = <<~CONTENT
       God.watch do |w|
         w.name = 'sicily'
-        w.start = 'sicily monitor'
+        w.start = 'SICILY_LOG=file sicily monitor'
         w.dir = File.expand_path("\#{File.dirname(__FILE__)}/..")
         w.keepalive
       end

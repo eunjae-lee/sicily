@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'sicily/version'
+require 'sicily/logger'
 require 'sicily/config'
 require 'sicily/monitor'
 require 'sicily/util/file_util'
