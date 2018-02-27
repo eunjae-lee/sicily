@@ -28,11 +28,9 @@ module Sicily
     end
 
     def self.start_monitor!(path, &user_rule_block)
-      begin
-        Monitor.new.on(path, &user_rule_block)
-      rescue MonitorError => e
-        Sicily.logger.error e.message
-      end
+      Monitor.new.on(path, &user_rule_block)
+    rescue MonitorError => e
+      Sicily.logger.error e.message
     end
 
     def self.store_monitored_path(path)
