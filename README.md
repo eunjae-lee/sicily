@@ -1,4 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/sicily.svg)](https://badge.fury.io/rb/sicily)
+[![Build Status](https://travis-ci.org/eunjae-lee/sicily.svg?branch=master)](https://travis-ci.org/eunjae-lee/sicily)
 
 # Sicily
 
