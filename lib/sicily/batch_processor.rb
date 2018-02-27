@@ -45,11 +45,9 @@ module Sicily
     end
 
     def process_added_file(file, &user_rule_block)
-      begin
-        FileProcessor.new(file).instance_eval(&user_rule_block)
-      rescue Exception => e
-        # FIXME : need to log `e.message`
-      end
+      FileProcessor.new(file).instance_eval(&user_rule_block)
+    rescue RuntimeError => e
+      Sicily.logger.error e.message
     end
 
     def notify_done
