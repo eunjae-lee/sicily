@@ -13,27 +13,27 @@ module Sicily
     end
 
     def unknown(*args)
-      @logger.unknown *args
+      @logger.unknown(*args)
     end
 
     def fatal(*args)
-      @logger.fatal *args
+      @logger.fatal(*args)
     end
 
     def error(*args)
-      @logger.error *args
+      @logger.error(*args)
     end
 
     def warn(*args)
-      @logger.warn *args
+      @logger.warn(*args)
     end
 
     def info(*args)
-      @logger.info *args
+      @logger.info(*args)
     end
 
     def debug(*args)
-      @logger.debug *args
+      @logger.debug(*args)
     end
 
     private
