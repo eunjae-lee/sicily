@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.5
+* It waits 10 seconds before taking actions in case when file is still changing
+
 ## 0.1.4
 * Add required ruby version
 * It's now easy to add new generator.
