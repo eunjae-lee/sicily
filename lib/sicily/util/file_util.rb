@@ -18,13 +18,25 @@ module Sicily
         time.strftime(dest_path)
       end
 
-      def self.extract_time(path)
-        if %w[.jpg .jpeg].include? File.extname(path).downcase
-          time_from_exif = ExifUtil.extract_time_from_jpeg(path)
-          return time_from_exif unless time_from_exif.nil?
-        end
+      private
 
-        File.birthtime(path)
+      def self.extract_time(path)
+        is_jpeg = jpeg?(path)
+        exif_time = ExifUtil.extract_time_from_jpeg(path)
+
+        (is_jpeg && exif_time) || extract_time_from_file_stat(path)
+      end
+
+      def self.jpeg?(path)
+        %w[.jpg .jpeg].include? File.extname(path).downcase
+      end
+
+      def self.extract_time_from_file_stat(path)
+        begin
+          File.birthtime(path)
+        rescue NotImplementedError
+          File.mtime(path)
+        end
       end
     end
   end
