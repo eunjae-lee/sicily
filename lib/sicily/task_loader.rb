@@ -37,4 +37,8 @@ module Sicily
       str.split('_').map(&:capitalize).join
     end
   end
+
+  def self.load_all_tasks
+    TaskLoader.new.load_all_tasks
+  end
 end

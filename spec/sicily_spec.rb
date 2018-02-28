@@ -15,7 +15,7 @@ RSpec.describe Sicily do
 
   it 'has default configs' do
     expect(Sicily.config.forbid_new_file_in_subfolder).to eq(true)
-    expect(Sicily.config.num_thread_pool).to eq(50)
+    expect(Sicily.config.num_thread_pool).to eq(10)
   end
 
   it 'works with configure_google' do
@@ -38,19 +38,5 @@ RSpec.describe Sicily do
 
     expect(Sicily.config_google.id).to eq('abcd')
     expect(Sicily.config_google.pw).to eq('def')
-  end
-
-  it 'works with on' do
-    # Sicily.on "/Users/paul/Downloads" do
-    #   fit_if_photo 2000, 2000
-    #   google_photo
-    #   mv "/Users/paul/Desktop/testfolder"
-    # end
-
-    dummy_path = File.dirname(__FILE__)
-
-    expect do
-      Sicily.on dummy_path
-    end.not_to raise_error
   end
 end

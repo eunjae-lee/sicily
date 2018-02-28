@@ -4,54 +4,15 @@ require 'sicily/version'
 require 'sicily/logger'
 require 'sicily/config'
 require 'sicily/monitor'
+require 'sicily/monitor_wrapper'
+require 'sicily/generator'
 require 'sicily/util/file_util'
 require 'sicily/task_loader'
 require 'sicily/error/monitor_error'
 
 module Sicily
-  TaskLoader.new.load_all_tasks
-
-  class MonitorWrapper
-    @monitored_paths = []
-
-    def self.on(path, &user_rule_block)
-      if can_monitor?(@monitored_paths, path)
-        store_path_and_start_monitor(path, &user_rule_block)
-      else
-        Sicily.logger.error "Monitor Failed. Path duplicated : #{path}"
-      end
-    end
-
-    def self.store_path_and_start_monitor(path, &user_rule_block)
-      store_monitored_path(path)
-      start_monitor!(path, &user_rule_block)
-    end
-
-    def self.start_monitor!(path, &user_rule_block)
-      Monitor.new.on(path, &user_rule_block)
-    rescue MonitorError => e
-      Sicily.logger.error e.message
-    end
-
-    def self.store_monitored_path(path)
-      @monitored_paths << File.expand_path(path)
-    end
-
-    def self.can_monitor?(prev_paths, new_path)
-      prev_paths.each do |prev_path|
-        return false if somehow_related?(prev_path, new_path)
-      end
-
-      true
-    end
-
-    def self.somehow_related?(path1, path2)
-      parent_child_relationship = Util::FileUtil.related?(path1, path2)
-      child_parent_relationship = Util::FileUtil.related?(path2, path1)
-
-      parent_child_relationship || child_parent_relationship
-    end
-  end
+  Sicily.load_all_tasks
+  Sicily.load_all_configs
 
   def self.on(path, &user_rule_block)
     MonitorWrapper.on path, &user_rule_block

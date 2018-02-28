@@ -8,8 +8,8 @@ require 'sicily/error/monitor_error'
 module Sicily
   class Monitor
     def on(path, &user_rule_block)
-      consume_all(path, &user_rule_block)
       attach_monitor(path, &user_rule_block)
+      consume_all(path, &user_rule_block)
     end
 
     private

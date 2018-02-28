@@ -18,13 +18,9 @@ module Sicily
         time.strftime(dest_path)
       end
 
-      private
-
       def self.extract_time(path)
-        is_jpeg = jpeg?(path)
-        exif_time = ExifUtil.extract_time_from_jpeg(path)
-
-        (is_jpeg && exif_time) || extract_time_from_file_stat(path)
+        exif_time = jpeg?(path) && ExifUtil.extract_time_from_jpeg(path)
+        exif_time || extract_time_from_file_stat(path)
       end
 
       def self.jpeg?(path)
@@ -32,11 +28,9 @@ module Sicily
       end
 
       def self.extract_time_from_file_stat(path)
-        begin
-          File.birthtime(path)
-        rescue NotImplementedError
-          File.mtime(path)
-        end
+        File.birthtime(path)
+      rescue NotImplementedError
+        File.mtime(path)
       end
     end
   end

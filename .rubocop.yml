@@ -14,4 +14,7 @@ Metrics/MethodLength:
 Metrics/ParameterLists:
   Max: 4
 Style/GlobalVars:
-  AllowedVariables: ['$SICILY_LOG_TO_FILE']
+  AllowedVariables: ['$SICILY_LOG_TO_FILE', '$SICILY_LOAD_USER_CONFIGS']
+Lint/RescueException:
+  Exclude:
+    - 'lib/sicily/batch_processor.rb'

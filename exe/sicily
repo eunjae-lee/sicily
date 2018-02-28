@@ -5,18 +5,15 @@
 $SICILY_LOG_TO_FILE = (ENV['SICILY_LOG'] == 'file')
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), ['..', 'lib'])
 
-require 'sicily'
-
 command = ARGV[0]
+
+$SICILY_LOAD_USER_CONFIGS = (command == 'monitor')
+
+require 'sicily'
 
 case command
 when 'generate'
   require 'fileutils'
-  require 'sicily/generator'
-
-  Dir['./generator/*.rb'].each do |file|
-    require file
-  end
 
   FileUtils.rm_rf './config'
   FileUtils.mkdir_p './config'
@@ -40,23 +37,7 @@ when 'generate'
     puts messages_to_display.join('\n')
   end
 when 'monitor'
-  `echo test >> monitor.log`
-  necessary_config_files = ['rules.rb']
-  config_files_to_load = ['google_photo.rb', 'rules.rb']
-
-  necessary_config_files.each do |file|
-    next if File.exist? "./config/#{file}"
-
-    puts "./config/#{file} is missing!"
-    puts '  Type: `sicily generate`'
-    exit
-  end
-
-  config_files_to_load.each do |filename|
-    path = "./config/#{filename}"
-    load(path) if File.exist?(path)
-  end
-
+  load './config/rules.rb'
   sleep
 when 'start'
   command1 = 'whenever --load-file ./config/.schedule.rb --update-crontab'

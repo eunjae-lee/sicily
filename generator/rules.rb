@@ -4,8 +4,6 @@ module Sicily
   Sicily.register_generator do |generator|
     generator.filename = 'rules.rb'
     generator.content = <<~CONTENT
-      # frozen_string_literal: true
-
       Sicily.on '~/your_folder' do
         fit_if_photo 2000, 2000
         google_photo

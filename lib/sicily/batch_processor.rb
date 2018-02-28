@@ -48,8 +48,8 @@ module Sicily
       file_processor = FileProcessor.new(file)
       file_processor.instance_eval(&user_rule_block)
       file_processor.info 'Done'
-    rescue RuntimeError => e
-      Sicily.logger.error e.message
+    rescue Exception => e
+      Sicily.logger.error e.inspect
     end
 
     def notify_done

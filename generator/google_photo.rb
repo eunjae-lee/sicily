@@ -3,9 +3,8 @@
 module Sicily
   Sicily.register_generator do |generator|
     generator.filename = 'google_photo.rb'
+    generator.load_on_start = true
     generator.content = <<~CONTENT
-      # frozen_string_literal: true
-
       Sicily.configure_google do |config|
         config.id = 'your id'
         config.pw = 'your pw'
