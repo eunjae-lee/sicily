@@ -24,7 +24,7 @@ module Sicily
           return time_from_exif unless time_from_exif.nil?
         end
 
-        File.ctime(path)
+        File.birthtime(path)
       end
     end
   end
