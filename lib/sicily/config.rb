@@ -13,7 +13,7 @@ module Sicily
 
     def initialize
       @forbid_new_file_in_subfolder = true
-      @num_thread_pool = 50
+      @num_thread_pool = 10
       @delay_on_file_monitoring = 10
       @consume_on_start = true
     end
