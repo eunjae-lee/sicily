@@ -30,7 +30,7 @@ module Sicily
     end
 
     def list_all_files
-      Dir["#{File.dirname(__FILE__)}/task/*.rb"]
+      Dir["#{Sicily.lib_path}/sicily/task/*.rb"]
     end
 
     def camelize(str)

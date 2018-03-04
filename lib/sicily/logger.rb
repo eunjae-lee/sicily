@@ -40,7 +40,7 @@ module Sicily
 
     def create_logger
       @logger = if $SICILY_LOG_TO_FILE
-                  Logger.new File.join(File.dirname(__FILE__), '../../monitor.log')
+                  Logger.new File.join(Dir.pwd, './monitor.log')
                 else
                   Logger.new STDOUT
                 end

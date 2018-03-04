@@ -30,7 +30,7 @@ module Sicily
 
     Sicily.logger.debug "#{Sicily.generators.size} generators found."
     Sicily.generators.each do |generator|
-      path = File.expand_path "#{File.dirname(__FILE__)}/../../config/#{generator.filename}"
+      path = File.expand_path "#{Sicily.user_config_path}/#{generator.filename}"
       next unless generator.load_on_start
       Sicily.logger.debug "ConfigLoader : #{path}"
       load path
