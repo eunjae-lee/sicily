@@ -23,8 +23,8 @@ Gem::Specification.new do |spec|
     To finish installation, please execute the following:
       $ npm install -g upload-gphotos
 
-    And Libgd is required for this gem. Please install it like the following:
-      $ brew install gd
+    And ImageMagick is required for this gem. Please install it like the following:
+      $ brew install imagemagick
   MESSAGE
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'concurrent-ruby', '~> 1.0.5'
   spec.add_dependency 'exifr', '~> 1.3.3'
   spec.add_dependency 'fastimage', '~> 2.1.1'
-  spec.add_dependency 'fastimage_resize', '~> 2.0.3'
+  spec.add_dependency 'mini_magick', '~> 4.8.0'
   spec.add_dependency 'god', '~> 0.13.7'
   spec.add_dependency 'listen', '~> 3.1.5'
   spec.add_dependency 'terminal-notifier', '~> 2.0.0'
