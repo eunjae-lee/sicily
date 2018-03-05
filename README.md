@@ -21,9 +21,15 @@ Or install it yourself as:
 
     $ gem install sicily
 
-And install a node package as:
+### Install dependencies
+
+Install a node package as:
 
     $ npm install -g upload-gphotos
+    
+Install ImageMagick
+
+    $ brew install imagemagick
 
 ## Usage
 
