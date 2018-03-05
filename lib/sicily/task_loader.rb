@@ -3,6 +3,7 @@
 module Sicily
   class TaskLoader
     def load_all_tasks
+      Sicily.logger.debug "listed files : #{list_all_files.size}"
       list_all_files.each do |file|
         require file
         include_module_if_exists(file)
@@ -17,6 +18,7 @@ module Sicily
     end
 
     def include_the_module(maybe_module)
+      Sicily.logger.debug "Including module : #{maybe_module.name}"
       FileProcessor.send(:include, maybe_module)
     end
 
@@ -30,6 +32,7 @@ module Sicily
     end
 
     def list_all_files
+      puts "Sicily.lib_path : #{Sicily.lib_path}"
       Dir["#{Sicily.lib_path}/sicily/task/*.rb"]
     end
 

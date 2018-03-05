@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require 'sicily/task/file_task'
 
 module Sicily
   module Task
