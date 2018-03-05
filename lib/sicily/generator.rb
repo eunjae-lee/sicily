@@ -22,7 +22,6 @@ module Sicily
   def self.load_generators
     Dir["#{Sicily.lib_path}/sicily/generator/*.rb"].each do |file|
       file = File.expand_path file
-      Sicily.logger.debug "Load generator : #{file}"
       require file
     end
   end
