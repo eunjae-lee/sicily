@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.8
+* Fix a bug that cannot resize image when rotation info at exif is not normal.
+
 ## 0.1.7
 * Fix a bug that getting wrong creation time of file.
 
